@@ -5,11 +5,21 @@
   <%= f.text_field :title %>
 
   <h4>Body</h4>
+
+  <% if @book.errors.any? %>
+  <%= @book.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
   <%= f.text_area :body %>
 
-  <%= f.submit 'Update Book' %> 
-  
+  <%= f.submit 'Update Book' %>
+
   <%= link_to "Show",book_path(@book.id) %>
 <%= link_to "Back", books_path %>
-   
+
 <% end %>

@@ -4,12 +4,12 @@ class BooksController < ApplicationController
    @book = Book.new
   end
   def create
-     @book = Book.new(book_params)
+    @book = Book.new(book_params)
     if @book.save
       flash[:notice] = "Book was successfully created."
       redirect_to book_path(@book.id) #⬅️showページアクション
     else
-
+      @books = Book.all
       render :index
     end
   end
@@ -30,15 +30,18 @@ class BooksController < ApplicationController
   end
 
   def update
-   flash[:notice] = "Book was successfully updated."
-   book = Book.find(params[:id])
-   book.update(book_params)
-    redirect_to book_path(book.id)
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      flash[:notice] = "Book was successfully updated."
+      redirect_to book_path(@book.id)
+    else
+      render :edit
+    end
   end
 
   private
   def book_params
     params.require(:book).permit(:title, :body) #bookはモデルがtitle.bodyカラムを承認
   end
-
 end
+
