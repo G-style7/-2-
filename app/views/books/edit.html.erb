@@ -1,13 +1,7 @@
 <h1>Editing Book</h1>
 
-<%= form_with model: @book, method: :patch do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-
-  <h4>Body</h4>
-
-  <% if @book.errors.any? %>
-  <%= @book.errors.count %>件のエラーが発生しました
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>件のerrorが発生しました
   <ul>
     <% @book.errors.full_messages.each do |message| %>
       <li><%= message %></li>
@@ -15,6 +9,12 @@
   </ul>
 <% end %>
 
+<%= form_with model: @book, method: :patch do |f| %>
+
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+
+  <h4>Body</h4>
   <%= f.text_area :body %>
 
   <%= f.submit 'Update Book' %>
